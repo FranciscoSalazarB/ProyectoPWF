@@ -37,33 +37,7 @@
 	                    <label for="pass_repeat">Repetir ontraseña</label>
 	                </div>
 	            </div>
-	            <div class="col s6">
-	            	<p>
-	            		<label>
-	            			<input type="radio" name="grup1" value="Encargado" checked>
-	            			<span>Encargado</span>
-	            		</label>
-	            	</p>
-	            	<p>
-	            		<label>
-	            			<input type="radio" name="grup1" value="Cliente">
-	            			<span>Cliente</span>
-	            		</label>
-	            	</p>
-	            	<p>
-	            		<label>
-	            			<input type="radio" name="grup1" value="Contador">
-	            			<span>Contador</span>
-	            		</label>
-	            	</p>
-	            	<p>
-	            		<label>
-	            			<input type="radio" name="grup1" value="Supervisor">
-	            			<span>Supervisor</span>
-	            		</label>
-	            	</p>
-	            </div>
-	            <div class="col s6">
+	            <div class="col s12">
 	            	<div class="row">
 	            		<br>
 	            		<div class="col s12">
