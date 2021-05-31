@@ -40,7 +40,11 @@
 	<br>
 	<div class="container">
 		<div class="row z-depth-3 grey lighten-5" id="vista_categorias">
-			<a href="{{route('categorias/crear')}}" class="waves-effect waves-light btn pink darken-4 center" id="agregar_categoria">Agregar nueva categoría</a>
+			@auth
+				@if(Auth::user()->cargo == 'Supervisor')
+					<a href="{{route('categorias/crear')}}" class="waves-effect waves-light btn pink darken-4 center" id="agregar_categoria">Agregar nueva categoría</a>
+				@endif
+			@endauth
 			<div class="col s12">
 				<div class="container">
 				@if(count($categorias)==0)	
@@ -53,12 +57,23 @@
 								<div class="col s6">
 									<p>Descripción : {{$categoria->descripcion}}</p>
 								</div>
-								<div class="col s2">
-									<a href="{{route('categorias/editar',$categoria->id)}}" class="waves-effect waves-light btn blue darken-4 center">Editar</a>
-								</div>
-								<div class="col s2">
-									<a href="{{route('categorias/eliminar',$categoria->id)}}" class="waves-effect waves-light btn  red darken-4 center">Eliminar</a>
-								</div>
+								@auth
+									@if(Auth::user()->cargo == 'Supervisor')
+										<div class="col s2">
+											<a href="{{route('categorias/editar',$categoria->id)}}" class="waves-effect waves-light btn blue darken-4 center">Editar</a>
+										</div>
+										<div class="col s2">
+											<a href="{{route('categorias/eliminar',$categoria->id)}}" class="waves-effect waves-light btn  red darken-4 center">Eliminar</a>
+										</div>
+									@else
+										<div class="col s2"></div>
+										<div class="col s2"></div>
+									@endif
+								@endauth
+								@guest
+									<div class="col s2"></div>
+									<div class="col s2"></div>
+								@endguest
 								<div class="col s2">
 									<a href="{{route('categorias/productos',$categoria->id)}}" class="waves-effect waves-light btn pink darken-4 center">Entrar</a>
 								</div>

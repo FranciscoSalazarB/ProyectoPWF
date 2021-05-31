@@ -15,11 +15,8 @@
 				@auth
 					<li><a href="#">{{Auth::user()->name}}</a></li>
 					<li><a href="{{route('salir')}}">Salir</a></li>
-					@if(Auth::user()->cargo == 'Encargado')
-						<li><a href="salir">Dashboard</a></li>
-					@endif
-					@if(Route::currentRouteName() != 'editar_usuario')
-						<li><a href="{{route('editar_usuario','')}}">editar</a></li>
+					@if(Auth::user()->cargo == 'Supervisor' and Route::currentRouteName() != 'dashboard')
+						<li><a href="{{route('dashboard')}}">Dashboard</a></li>
 					@endif
 					@if(Route::currentRouteName() != 'categorias')
 						<li><a href="{{route('categorias')}}">Categorías</a></li>
@@ -28,6 +25,9 @@
 					<li><a href="#">Anónimo</a></li>
 					@if(Route::currentRouteName() != '/')
 						<li><a href="{{route('/')}}">Login</a></li>
+					@endif
+					@if(Route::currentRouteName() != 'categorias')
+						<li><a href="{{route('categorias')}}">Categorías</a></li>
 					@endif
 				@endauth
 			</ul>

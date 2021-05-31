@@ -43,14 +43,13 @@ class UserController extends Controller
     	$re->validate([
     		'user'=>'required',
     		'email'=>'required|email|unique:users',
-    		'pass'=>'required',
-    		'grup1'=>'required'
+    		'pass'=>'required'
     	]);
     	User::create([
     		'name'=>$re->input('user'),
     		'email'=>$re->input('email'),
     		'password'=>Hash::make($re->input('pass')),
-    		'cargo'=>$re->input('grup1')
+    		'cargo'=>'Cliente'
     	]);
         Auth::attempt([
         'email'=>$re->input('email'),
@@ -62,11 +61,13 @@ class UserController extends Controller
     public function editar_usuario($id, Request $re)
     {
         $usuario = User::where('id',$id)->first();
-        $usuario->name = $re->input('user');
+        $usuario->name = $re->input('name');
+        $usuario->email = $re->input('email');
+        $usuario->cargo = $re->input('grup1');
         if (!is_null($re->input('pass'))) {
             $usuario->password = Hash::make($re->input('pass'));
         }
         $usuario->save();
-        return redirect('categorias');
+        return redirect('dashboard');
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -26,11 +27,6 @@ Route::post('nuevo_usuario', [UserController::class,'crear'])->name('nuevo_usuar
 Route::get('registro', function(){return view('registro');})->name('registro')->middleware('guest');
 Route::get('salir', [UserController::class,'logout'])->name('salir')->middleware('auth');
 
-
-Route::get('editar_usuario', function(){return view('editar_usuario');})->name('editar_usuario')->middleware('auth');
-Route::post('editar_usuario/{id}', [UserController::class,'editar_usuario'])->name('editar_usuario')->middleware('auth');
-
-
 Route::get('categorias', [CategoryesController::class, 'index'])->name('categorias');
 Route::get('categorias/crear', [CategoryesController::class, 'store'])->name('categorias/crear')->middleware('auth');
 Route::post('categorias/crear', [CategoryesController::class, 'create'])->name('categorias/crear')->middleware('auth');
@@ -50,3 +46,6 @@ Route::post('categorias/productos/{id_categoria}/editar/{id_producto}',[ProductC
 Route::get('categorias/productos/{id_categoria}/consignar/{id_producto}',[ProductController::class,'consignar'])->name('categorias/productos/consignar')->middleware('auth');
 Route::get('categorias/productos/{id_categoria}/eliminar/{id_producto}',[ProductController::class,'destroy'])->name('categorias/productos/eliminar')->middleware('auth');
 
+Route::get('dashboard',[AdminController::class,'index'])->name('dashboard')->middleware('auth');
+Route::get('dashboard/editar_usuario/{id}',[AdminController::class,'store'])->name('dashboard/editar_usuario');
+Route::post('dashboard/editar_usuario/{id}',[UserController::class,'editar_usuario'])->name('dashboard/editar_usuario');

@@ -17,7 +17,12 @@ class ProductController extends Controller
     public function index($id)
     {
         $categoria = Category::find($id);
-        $productos = $categoria->productos;
+        if (!is_null($categoria)) {
+            $productos = $categoria->productos;
+        }
+        else{
+            $productos = 0;
+        }
         return view('productos',['categoria'=>$categoria,'productos'=>$productos]);
     }
 
