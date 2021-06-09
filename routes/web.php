@@ -33,7 +33,12 @@ Route::post('categorias/crear', [CategoryesController::class, 'create'])->name('
 Route::get('categorias/eliminar/{id}',[CategoryesController::class, 'destroy'])->name('categorias/eliminar')->middleware('auth');
 Route::get('categorias/editar/{id}', [CategoryesController::class, 'edit'])->name('categorias/editar')->middleware('auth');
 Route::post('categorias/editar/{id}', [CategoryesController::class, 'update'])->name('categorias/editar')->middleware('auth');
+Route::post('buscar',[ProductController::class,'buscar'])->name('buscar');
 
+Route::get('mis_productos', function(){
+	return view('mis_productos');
+})->name('mis_productos')->middleware('auth');
+Route::get('producto/{id}',[ProductController::class,'show'])->name('producto');
 
 Route::get('categorias/productos/{id}/crear', [ProductController::class,'store'])->name('categorias/productos/crear')->middleware('auth');
 Route::post('categorias/productos/{id}/crear',[ProductController::class,'create'])->name('categorias/productos/crear')->middleware('auth');
@@ -48,4 +53,8 @@ Route::get('categorias/productos/{id_categoria}/eliminar/{id_producto}',[Product
 
 Route::get('dashboard',[AdminController::class,'index'])->name('dashboard')->middleware('auth');
 Route::get('dashboard/editar_usuario/{id}',[AdminController::class,'store'])->name('dashboard/editar_usuario');
+Route::get('dashboard/ver_user/{id}',[AdminController::class,'ver_usuario'])->name('dashboard/ver_user');
 Route::post('dashboard/editar_usuario/{id}',[UserController::class,'editar_usuario'])->name('dashboard/editar_usuario');
+Route::get('cardex/{id}',[AdminController::class,'ver_cardex'])->name('cardex');
+
+Route::get('no_consignados',[AdminController::class,'sinConsignar'])->name('no_consignados');

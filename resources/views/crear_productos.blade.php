@@ -7,7 +7,7 @@
 				<h3>Crear producto en : {{$categoria->nombre}}</h3>
 			</div>	
 		</div>
-		<form class="row" action="{{route('categorias/productos/crear',$categoria->id)}}" method="post" >
+		<form class="row" action="{{route('categorias/productos/crear',$categoria->id)}}" method="post" enctype="multipart/form-data">
 			@csrf
 			<div class="col s12">
 				<div class="input-field">
@@ -25,6 +25,11 @@
 				<div class="input-field">
 					<textarea name="descripcion" class="materialize-textarea" required></textarea>
 					<label for="nombre">Descripción del producto</label>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field">
+					<input type="file" name="imagen" class="waves-effect waves-light btn pink darken-4">
 				</div>
 			</div>
 			<div class="col s12">

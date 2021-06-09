@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -38,14 +40,28 @@ class ProductController extends Controller
             'precio'=>'required',
             'descripcion'=>'required'
         ]);
-        Product::create([
-            'nombre'=>$req->input('nombre'),
-            'descripcion'=>$req->input('descripcion'),
-            'precio'=>$req->input('precio'),
-            'consignado'=>FALSE,
-            'user_id'=>Auth::id(),
-            'category_id'=>$id
-        ]);
+
+        $producto = new Product();
+        $producto->nombre = $req->input('nombre');
+        $producto->descripcion = $req->input('descripcion');
+        $producto->precio = $req->input('precio');
+        $producto->consignado = FALSE;
+        $producto->user_id = Auth::id();
+        $producto->category_id = $id;
+        $producto->motivo = '';
+        $producto->url_imagen = '';
+        $producto->save();
+
+        if ($req->hasFile('imagen')) {
+            $file = $req->file('imagen');
+            $destino = 'images/';
+            $fileName = time().'-'.$file->getClientOriginalName();
+            $uploadSucess = $req->file('imagen')->move($destino,$fileName);
+            Image::Create([
+                'product_id'=>$producto->id,
+                'url'=>$destino.$fileName
+            ]);
+        }
         return redirect()->route('categorias/productos',$id);
     }
 
@@ -69,7 +85,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto = Product::find($id);
+        return view('producto',['producto'=>$producto]);
     }
 
     public function consignar($categoria_id,$producto_id)
@@ -125,5 +142,12 @@ class ProductController extends Controller
         $producto = Product::find($producto_id);
         $producto->delete();
         return redirect()->route('categorias/productos',$categoria_id);
+    }
+
+    public function buscar(Request $req)
+    {
+        $buscarPor = $req->input('producto');
+        $productos = DB::table('products')->where('nombre','like',"%$buscarPor%")->orWhere('descripcion','like',"%$buscarPor%")->get();
+        return view('resultado',['productos'=>$productos]);
     }
 }
