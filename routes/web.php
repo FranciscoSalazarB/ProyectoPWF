@@ -38,6 +38,7 @@ Route::post('buscar',[ProductController::class,'buscar'])->name('buscar');
 Route::get('mis_productos', function(){
 	return view('mis_productos');
 })->name('mis_productos')->middleware('auth');
+<<<<<<< HEAD
 
 Route::get('producto/{id}',[ProductController::class,'show'])->name('producto');
 Route::post('preguntar/{id}',[ProductController::class,'crearPregunta'])->name('preguntar');
@@ -48,6 +49,9 @@ Route::get('producto/{id}/eliminar',[ProductController::class,'destroy'])->name(
 Route::get('producto/{id}/consignar',[ProductController::class,'consignar'])->name('producto/consignar');
 Route::get('producto/{id}/desconsignar',[ProductController::class,'desconsignar'])->name('producto/desconsignar');
 Route::post('producto/{id}/rechazar',[ProductController::class,'rechazar'])->name('producto/rechazar');
+=======
+Route::get('producto/{id}',[ProductController::class,'show'])->name('producto');
+>>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 
 Route::get('categorias/productos/{id}/crear', [ProductController::class,'store'])->name('categorias/productos/crear')->middleware('auth');
 Route::post('categorias/productos/{id}/crear',[ProductController::class,'create'])->name('categorias/productos/crear')->middleware('auth');

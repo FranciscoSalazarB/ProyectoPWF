@@ -51,6 +51,31 @@
 									<dir class="col s4" style="margin: 0; margin-top: -20px;">
 										<p>Precio : ${{$producto->precio}}</p>
 									</dir>
+<<<<<<< HEAD
+=======
+									@auth
+									@if(Auth::user()->cargo == 'Encargado')
+									<div class="col s2" style="margin-bottom: 0; margin-top: 0">
+										<a href="{{route('categorias/productos/consignar',[$categoria->id,$producto->id])}}" class="waves-effect waves-light btn purple darken-4 center">Consignar</a>
+									</div>
+									@else
+									<div class="col s2">
+										
+									</div>
+									@endif
+									@if(Auth::user()->id == $producto->user_id)
+									<div class="col s2">
+										<a href="{{route('categorias/productos/editar',[$categoria->id,$producto->id])}}" class="waves-effect waves-light btn blue darken-4 center">Editar</a>
+									</div>
+									<div class="col s2">
+										<a href="{{route('categorias/productos/eliminar',[$categoria->id,$producto->id])}}" class="waves-effect waves-light btn  red darken-4 center">Eliminar</a>
+									</div>
+									@else
+									<div class="col s4"></div>
+									@endif
+									@endauth
+									@guest
+>>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 									<div class="col s6"></div>
 									<div class="col s2" >
 										<a href="{{route('producto',$producto->id)}}" class="waves-effect waves-light btn pink darken-4 center">Producto</a>

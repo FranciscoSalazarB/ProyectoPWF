@@ -17,7 +17,11 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('contenido');
+<<<<<<< HEAD
             $table->string('respuesta')->nullable();
+=======
+            $table->string('respuesta');
+>>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
 

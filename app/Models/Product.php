@@ -32,10 +32,13 @@ class Product extends Model
 
     public function images(){
         return $this->hasMany('App\Models\Image');
+<<<<<<< HEAD
     }
     public function questions()
     {
         return $this->hasMany('App\Models\Question');
+=======
+>>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
     }
 
 }
