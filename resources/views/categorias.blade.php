@@ -21,12 +21,12 @@
 				<h3 class="center">Categorías</h3>
 			</div>
 			<div class="col s12 center">
-				<form class="row center" action="#" method="post">
+				<form class="row center" action="{{route('buscar')}}" method="post">
 					@csrf
 					<div class="col s4"></div>
 					<div class="col s4 center">
                 		<div class="input-field">
-                    		<input type="text" name="poducto" placeholder="Buscar producto" required>
+                    		<input type="text" name="producto" placeholder="Buscar producto" required>
                 		</div>
             		</div>
             		<div class="col s1">

@@ -15,17 +15,27 @@ class Product extends Model
     	'precio',
     	'user_id',
     	'category_id',
-        'consignado'
+        'consignado',
+        'motivo',
+        'url_imagen'
     ];
 
     public function usuario()
     {
-    	return $this->belongsTo('App\Models\User');
+    	return $this->belongsTo('App\Models\User','user_id');
     }
 
     public function categoria()
     {
-    	return $this->belongsTo('App\Models\Category');
+    	return $this->belongsTo('App\Models\Category','category_id');
+    }
+
+    public function images(){
+        return $this->hasMany('App\Models\Image');
+    }
+    public function questions()
+    {
+        return $this->hasMany('App\Models\Question');
     }
 
 }

@@ -33,19 +33,31 @@ Route::post('categorias/crear', [CategoryesController::class, 'create'])->name('
 Route::get('categorias/eliminar/{id}',[CategoryesController::class, 'destroy'])->name('categorias/eliminar')->middleware('auth');
 Route::get('categorias/editar/{id}', [CategoryesController::class, 'edit'])->name('categorias/editar')->middleware('auth');
 Route::post('categorias/editar/{id}', [CategoryesController::class, 'update'])->name('categorias/editar')->middleware('auth');
+Route::post('buscar',[ProductController::class,'buscar'])->name('buscar');
 
+Route::get('mis_productos', function(){
+	return view('mis_productos');
+})->name('mis_productos')->middleware('auth');
+
+Route::get('producto/{id}',[ProductController::class,'show'])->name('producto');
+Route::post('preguntar/{id}',[ProductController::class,'crearPregunta'])->name('preguntar');
+Route::post('responder/{id}',[ProductController::class,'responder'])->name('responder');
+Route::get('producto/{id}/editar',[ProductController::class,'edit'])->name('producto/editar');
+Route::post('producto/{id}/editar',[ProductController::class,'update'])->name('producto/editar');
+Route::get('producto/{id}/eliminar',[ProductController::class,'destroy'])->name('producto/eliminar');
+Route::get('producto/{id}/consignar',[ProductController::class,'consignar'])->name('producto/consignar');
+Route::get('producto/{id}/desconsignar',[ProductController::class,'desconsignar'])->name('producto/desconsignar');
+Route::post('producto/{id}/rechazar',[ProductController::class,'rechazar'])->name('producto/rechazar');
 
 Route::get('categorias/productos/{id}/crear', [ProductController::class,'store'])->name('categorias/productos/crear')->middleware('auth');
 Route::post('categorias/productos/{id}/crear',[ProductController::class,'create'])->name('categorias/productos/crear')->middleware('auth');
 Route::get('categorias/productos/{id}', [ProductController::class,'index'])->name('categorias/productos');
 
-Route::get('categorias/productos/{id_categoria}/editar/{id_producto}',[ProductController::class,'edit'])->name('categorias/productos/editar')->middleware('auth');
-
-Route::post('categorias/productos/{id_categoria}/editar/{id_producto}',[ProductController::class,'update'])->name('categorias/productos/editar')->middleware('auth');
-
-Route::get('categorias/productos/{id_categoria}/consignar/{id_producto}',[ProductController::class,'consignar'])->name('categorias/productos/consignar')->middleware('auth');
-Route::get('categorias/productos/{id_categoria}/eliminar/{id_producto}',[ProductController::class,'destroy'])->name('categorias/productos/eliminar')->middleware('auth');
 
 Route::get('dashboard',[AdminController::class,'index'])->name('dashboard')->middleware('auth');
 Route::get('dashboard/editar_usuario/{id}',[AdminController::class,'store'])->name('dashboard/editar_usuario');
+Route::get('dashboard/ver_user/{id}',[AdminController::class,'ver_usuario'])->name('dashboard/ver_user');
 Route::post('dashboard/editar_usuario/{id}',[UserController::class,'editar_usuario'])->name('dashboard/editar_usuario');
+Route::get('cardex/{id}',[AdminController::class,'ver_cardex'])->name('cardex');
+
+Route::get('no_consignados',[AdminController::class,'sinConsignar'])->name('no_consignados');

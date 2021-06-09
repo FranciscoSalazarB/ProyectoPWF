@@ -7,7 +7,7 @@
 				<h3>Editar Producto</h3>
 			</div>	
 		</div>
-		<form class="row center" action="{{route('categorias/productos/editar',[$categoria_id,$producto->id])}}" method="post">
+		<form class="row center" action="{{route('producto/editar',$producto->id)}}" method="post">
 			@csrf
 			<div class="col s12">
 				<div class="input-field">

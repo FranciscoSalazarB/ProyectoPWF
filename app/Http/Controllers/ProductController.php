@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Image;
+use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -38,14 +41,28 @@ class ProductController extends Controller
             'precio'=>'required',
             'descripcion'=>'required'
         ]);
-        Product::create([
-            'nombre'=>$req->input('nombre'),
-            'descripcion'=>$req->input('descripcion'),
-            'precio'=>$req->input('precio'),
-            'consignado'=>FALSE,
-            'user_id'=>Auth::id(),
-            'category_id'=>$id
-        ]);
+
+        $producto = new Product();
+        $producto->nombre = $req->input('nombre');
+        $producto->descripcion = $req->input('descripcion');
+        $producto->precio = $req->input('precio');
+        $producto->consignado = FALSE;
+        $producto->user_id = Auth::id();
+        $producto->category_id = $id;
+        $producto->motivo = '';
+        $producto->url_imagen = '';
+        $producto->save();
+
+        if ($req->hasFile('imagen')) {
+            $file = $req->file('imagen');
+            $destino = 'images/';
+            $fileName = time().'-'.$file->getClientOriginalName();
+            $uploadSucess = $req->file('imagen')->move($destino,$fileName);
+            Image::Create([
+                'product_id'=>$producto->id,
+                'url'=>$destino.$fileName
+            ]);
+        }
         return redirect()->route('categorias/productos',$id);
     }
 
@@ -69,27 +86,43 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto = Product::find($id);
+        return view('producto',['producto'=>$producto]);
     }
 
-    public function consignar($categoria_id,$producto_id)
+    public function consignar($producto_id)
     {
         $producto = Product::find($producto_id);
         $producto->consignado = TRUE;
         $producto->save();
-        return redirect()->route('categorias/productos',$categoria_id);
+        return redirect()->route('producto',$producto_id);
     }
 
+    public function desconsignar($producto_id)
+    {
+        $producto = Product::find($producto_id);
+        $producto->consignado = FALSE;
+        $producto->save();
+        return redirect()->route('producto',$producto_id);
+    }
+
+    public function rechazar(Request $req, $id)
+    {
+        $producto = Product::find($id);
+        $producto->motivo = $req->input('motivo');
+        $producto->save();
+        return redirect()->route('producto',$id);
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($categoria_id,$producto_id)
+    public function edit($producto_id)
     {
         $producto = Product::find($producto_id);
-        return view('editar_producto',['producto'=>$producto,'categoria_id'=>$categoria_id]);
+        return view('editar_producto',['producto'=>$producto,'categoria_id'=>$producto->categoria->id]);
     }
 
     /**
@@ -99,7 +132,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $categoria_id, $producto_id)
+    public function update(Request $request, $producto_id)
     {
         $request->validate([
             'nombre'=>'required',
@@ -111,7 +144,7 @@ class ProductController extends Controller
         $producto->precio = $request->input('precio');
         $producto->descripcion = $request->input('descripcion');
         $producto->save();
-        return redirect()->route('categorias/productos',$categoria_id);
+        return redirect()->route('producto',$producto_id);
     }
 
     /**
@@ -120,10 +153,38 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($categoria_id,$producto_id)
+    public function destroy($producto_id)
     {
         $producto = Product::find($producto_id);
+        $categoria_id = $producto->categoria->id;
         $producto->delete();
         return redirect()->route('categorias/productos',$categoria_id);
     }
+
+    public function buscar(Request $req)
+    {
+        $buscarPor = $req->input('producto');
+        $productos = DB::table('products')->where('nombre','like',"%$buscarPor%")->orWhere('descripcion','like',"%$buscarPor%")->get();
+        return view('resultado',['productos'=>$productos]);
+    }
+
+    public function crearPregunta(Request $req, $idProducto)
+    {
+
+        Question::create([
+            'contenido'=>$req->input('pregunta'),
+            'product_id'=>$idProducto,
+            'user_id'=>Auth::id()
+        ]);
+        return redirect()->route('producto',$idProducto);  
+    }
+
+    public function responder(Request $req, $id_pregunta)
+    {
+        $pregunta = Question::find($id_pregunta);
+        $pregunta->respuesta = $req->input('respuesta');
+        $pregunta->save();
+        return redirect()->route('producto',$pregunta->product->id);
+    }
+
 }

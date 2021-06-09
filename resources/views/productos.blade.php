@@ -29,7 +29,7 @@
 	<div class="container">
 		<div class="row z-depth-3 grey lighten-5" id="vista_productos">
 			@auth
-				@if(!is_null($categoria))
+				@if(!is_null($categoria) and Auth::user()->cargo == 'Cliente')
 					<a href="{{route('categorias/productos/crear',$categoria->id)}}" class="waves-effect waves-light btn pink darken-4 center" id="agregar_producto">Agregar nuevo producto</a>
 				@endif
 			@endauth
@@ -51,24 +51,9 @@
 									<dir class="col s4" style="margin: 0; margin-top: -20px;">
 										<p>Precio : ${{$producto->precio}}</p>
 									</dir>
-									@auth
-									@if(Auth::user()->cargo == 'Encargado')
-									<dir class="col s2" style="margin-bottom: 0; margin-top: 0">
-										<a href="{{route('categorias/productos/consignar',[$categoria->id,$producto->id])}}" class="waves-effect waves-light btn purple darken-4 center">Consignar</a>
-									</dir>
-									@endif
-									<div class="col s2">
-										<a href="{{route('categorias/productos/editar',[$categoria->id,$producto->id])}}" class="waves-effect waves-light btn blue darken-4 center">Editar</a>
-									</div>
-									<div class="col s2">
-										<a href="{{route('categorias/productos/eliminar',[$categoria->id,$producto->id])}}" class="waves-effect waves-light btn  red darken-4 center">Eliminar</a>
-									</div>
-									@endauth
-									@guest
 									<div class="col s6"></div>
-									@endguest
 									<div class="col s2" >
-										<a href="#" class="waves-effect waves-light btn pink darken-4 center">Comprar</a>
+										<a href="{{route('producto',$producto->id)}}" class="waves-effect waves-light btn pink darken-4 center">Producto</a>
 									</div>
 								</div>
 							</div>

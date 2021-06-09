@@ -18,6 +18,12 @@
 					@if(Auth::user()->cargo == 'Supervisor' and Route::currentRouteName() != 'dashboard')
 						<li><a href="{{route('dashboard')}}">Dashboard</a></li>
 					@endif
+					@if(Route::currentRouteName() != 'mis_productos' and Auth::user()->cargo == 'Cliente')
+						<li><a href="{{route('mis_productos')}}">Mis productos</a></li>
+					@endif
+					@if(Route::currentRouteName() != 'no_consignados' and Auth::user()->cargo == 'Encargado')
+						<li><a href="{{route('no_consignados')}}">Consignar</a></li>
+					@endif
 					@if(Route::currentRouteName() != 'categorias')
 						<li><a href="{{route('categorias')}}">Categorías</a></li>
 					@endif
