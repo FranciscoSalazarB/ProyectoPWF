@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
-<<<<<<< HEAD
+
 use App\Models\Question;
-=======
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -170,7 +168,6 @@ class ProductController extends Controller
         $productos = DB::table('products')->where('nombre','like',"%$buscarPor%")->orWhere('descripcion','like',"%$buscarPor%")->get();
         return view('resultado',['productos'=>$productos]);
     }
-<<<<<<< HEAD
 
     public function crearPregunta(Request $req, $idProducto)
     {
@@ -191,6 +188,4 @@ class ProductController extends Controller
         return redirect()->route('producto',$pregunta->product->id);
     }
 
-=======
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 }

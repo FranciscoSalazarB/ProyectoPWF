@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
-<<<<<<< HEAD
 
     protected $table='questions';
 
@@ -27,6 +26,4 @@ class Question extends Model
     public function user(){
         return $this->belongsTo('App\Models\User','user_id');
     }
-=======
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 }

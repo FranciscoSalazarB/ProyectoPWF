@@ -1,13 +1,10 @@
 @extends('layout')
 @section('content')
-<<<<<<< HEAD
 	<style type="text/css">
 		.full_button {
 			width: 100%;
 		}
 	</style>
-=======
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 	<div class="container">
 		<div class="row">
 			<div class="col s6">
@@ -18,11 +15,8 @@
 				<h4>Categoría : <a href="{{route('categorias/productos',$producto->categoria->id)}}" class="waves-effect waves-light btn pink darken-4 center">{{$producto->categoria->nombre}}</a></h4>
 			</div>
 		</div>
-<<<<<<< HEAD
 		@auth
 		@if(Auth::user()->cargo == 'Encargado' or Auth::user()->id == $producto->usuario->id)
-=======
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 		<div class="row">
 			<div class="col s6">
 				<h4>Propietario : {{$producto->usuario->name}}</h4>
@@ -31,7 +25,6 @@
 				<h5>{{$producto->consignado? "" : "Sin Consignar"}}</h5>
 			</div>
 		</div>
-<<<<<<< HEAD
 		@endif
 		@endauth
 		<div class="row">
@@ -70,20 +63,17 @@
 		@endauth
 		<div class="row z-depth-3">
 			<div class="carousel" >
-=======
 		<div class="row">
 			<div class="col s12"><h5>precio ${{$producto->precio}}</h5></div>
 			<div class="col s12s"><h5>Descipción : {{$producto->descripcion}}</h5></div>
 		</div>
 		<div class="row">
 			<div class="carousel">
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 				@foreach($producto->images as $image)
 					<a class="carousel-item" href="#one!"><img src="{{asset($image->url)}}" ></a>
 				@endforeach
 			</div>
 		</div>
-<<<<<<< HEAD
 		<div class="row z-depth-3">
 			<h3>Preguntas</h3>
 			@foreach($producto->questions as $question)
@@ -131,14 +121,12 @@
 		</form>
 		@endif
 		@endauth
-=======
 		<form class="row">
 			<div class="col s6">
 				<textarea name="pregunta" class="materialize-textarea" required></textarea>
 				<label for="pregunta">Descripción del producto</label>
 			</div>
 		</form>
->>>>>>> 327f9b6a3d5fa52847dd0d6bc0ace5bf29b9742d
 	</div>
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
