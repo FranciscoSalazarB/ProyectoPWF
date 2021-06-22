@@ -16,8 +16,7 @@ class Product extends Model
     	'user_id',
     	'category_id',
         'consignado',
-        'motivo',
-        'url_imagen'
+        'motivo'
     ];
 
     public function usuario()

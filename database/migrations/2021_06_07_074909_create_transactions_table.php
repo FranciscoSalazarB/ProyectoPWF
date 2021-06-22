@@ -16,10 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->float('puntuacion');
+            $table->float('puntuacion')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('comprador_id');
-            $table->unsignedBigInteger('vendedor_id');
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('comprador_id')->references('id')->on('users')->onDelete('cascade');
