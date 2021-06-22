@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('nombre')->unique();
             $table->string('descripcion');
             $table->float('precio');
-            $table->string('motivo');
+            $table->string('motivo')->nullable();
             $table->boolean('consignado');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');

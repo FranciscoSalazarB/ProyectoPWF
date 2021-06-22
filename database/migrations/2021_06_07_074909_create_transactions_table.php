@@ -22,7 +22,6 @@ class CreateTransactionsTable extends Migration
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('comprador_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('vendedor_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
