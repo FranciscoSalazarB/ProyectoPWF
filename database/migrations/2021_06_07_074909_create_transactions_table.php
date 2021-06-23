@@ -17,6 +17,9 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->float('puntuacion')->nullable();
+            $table->boolean('entregado');
+            $table->boolean('confirmado');
+            $table->string('comprobante');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('comprador_id');
 

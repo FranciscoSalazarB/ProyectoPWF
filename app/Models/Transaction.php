@@ -21,6 +21,6 @@ class Transaction extends Model
 
     public function producto()
     {
-        return $this->belongsTo('App\Models\Product','producto_id');
+        return $this->belongsTo('App\Models\Product','product_id');
     }
 }

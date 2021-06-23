@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TransactionController;
 
 
 /*
@@ -47,10 +48,11 @@ Route::post('producto/{id}/editar',[ProductController::class,'update'])->name('p
 Route::get('producto/{id}/eliminar',[ProductController::class,'destroy'])->name('producto/eliminar');
 Route::get('producto/{id}/consignar',[ProductController::class,'consignar'])->name('producto/consignar');
 Route::get('producto/{id}/desconsignar',[ProductController::class,'desconsignar'])->name('producto/desconsignar');
-Route::get('producto/{id}/comrar',[ProductController::class,'comprar'])->name('producto/comprar');
+Route::get('producto/{id}/comprar',[ProductController::class,'comprar'])->name('producto/comprar');
 Route::post('producto/{id}/rechazar',[ProductController::class,'rechazar'])->name('producto/rechazar');
 
-Route::get('producto/{id}',[ProductController::class,'show'])->name('producto');
+Route::get('trasaction/{id}',[TransactionController::class,'index'])->name('transaction');
+
 
 Route::get('categorias/productos/{id}/crear', [ProductController::class,'store'])->name('categorias/productos/crear')->middleware('auth');
 Route::post('categorias/productos/{id}/crear',[ProductController::class,'create'])->name('categorias/productos/crear')->middleware('auth');

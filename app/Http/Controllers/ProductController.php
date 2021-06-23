@@ -196,7 +196,7 @@ class ProductController extends Controller
         $transaction->product_id = $producto->id;
         $transaction->comprador_id = Auth::id();
         $transaction->save();
-        return "funciona";
+        return redirect()->route('transaction',$transaction->id);
     }
 
 }
