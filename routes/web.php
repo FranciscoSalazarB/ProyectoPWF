@@ -47,6 +47,7 @@ Route::post('producto/{id}/editar',[ProductController::class,'update'])->name('p
 Route::get('producto/{id}/eliminar',[ProductController::class,'destroy'])->name('producto/eliminar');
 Route::get('producto/{id}/consignar',[ProductController::class,'consignar'])->name('producto/consignar');
 Route::get('producto/{id}/desconsignar',[ProductController::class,'desconsignar'])->name('producto/desconsignar');
+Route::get('producto/{id}/comrar',[ProductController::class,'comprar'])->name('producto/comprar');
 Route::post('producto/{id}/rechazar',[ProductController::class,'rechazar'])->name('producto/rechazar');
 
 Route::get('producto/{id}',[ProductController::class,'show'])->name('producto');

@@ -113,7 +113,7 @@
 				<button class="waves-effect waves-light btn pink darken-4 center" type="submit">Preguntar</button>
 			</div>
 			<div class="col s4">
-				<a href="#" class="waves-effect waves-light btn red darken-4 center full_button">Comprar</a>
+				<a href="{{route('producto/comprar',$producto->id)}}" class="waves-effect waves-light btn red darken-4 center full_button">Comprar</a>
 			</div>
 		</form>
 		@endif

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
-
+use App\Models\Transaction;
 use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -186,6 +186,17 @@ class ProductController extends Controller
         $pregunta->respuesta = $req->input('respuesta');
         $pregunta->save();
         return redirect()->route('producto',$pregunta->product->id);
+    }
+
+    public function comprar($id_producto)
+    {
+        $producto = Product::find($id_producto);
+        $transaction = new Transaction();
+        $transaction->puntuacion = 0;
+        $transaction->product_id = $producto->id;
+        $transaction->comprador_id = Auth::id();
+        $transaction->save();
+        return "funciona";
     }
 
 }
