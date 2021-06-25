@@ -20,6 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->boolean('entregado');
             $table->boolean('confirmado');
             $table->string('comprobante');
+            $table->float('cantidad');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('comprador_id');
 

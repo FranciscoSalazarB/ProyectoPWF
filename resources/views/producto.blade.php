@@ -4,6 +4,9 @@
 		.full_button {
 			width: 100%;
 		}
+		.carousel{
+			height: 225px;
+		}
 	</style>
 	<div class="container">
 		<div class="row">
@@ -12,7 +15,7 @@
 			</div>
 			<div class="col s6">
 				<br>
-				<h4>Categoría : <a href="{{route('categorias/productos',$producto->categoria->id)}}" class="waves-effect waves-light btn pink darken-4 center">{{$producto->categoria->nombre}}</a></h4>
+				<h4>Categoría   <a href="{{route('categorias/productos',$producto->categoria->id)}}" class="waves-effect waves-light btn pink darken-4 center">{{$producto->categoria->nombre}}</a></h4>
 			</div>
 		</div>
 		@auth
@@ -28,7 +31,8 @@
 		@endif
 		@endauth
 		<div class="row">
-			<div class="col s12"><h5>precio ${{$producto->precio}}</h5></div>
+			<div class="col s6"><h5>precio ${{$producto->precio}}</h5></div>
+			<div class="col s6"><h5>Existencias : {{$producto->existencias}}</h5></div>
 			<div class="col s12"><h5>Descipción : {{$producto->descripcion}}</h5></div>
 		</div>
 		@auth
@@ -68,6 +72,22 @@
 				@endforeach
 			</div>
 		</div>
+		@auth
+		@if($producto->usuario->id != Auth::user()->id)
+		<form class="row" action="{{route('producto/comprar',$producto->id)}}" method="post">
+			@csrf
+			<div class="col s6">
+				<div class="input-field">
+					<input type="number" name="cantidad" required min="1" max="{{$producto->existencias}}">
+					<label for="cantidad">Cantidad de piezas a comprar</label>
+				</div>
+			</div>
+			<div class="col s6">
+				<button class="waves-effect waves-light btn pink darken-4 center full_button" type="submit">Comprar</button>
+			</div>
+		</form>
+		@endif
+		@endauth
 		<div class="row z-depth-3">
 			<h3>Preguntas</h3>
 			@foreach($producto->questions as $question)
@@ -109,11 +129,8 @@
 				<textarea name="pregunta" class="materialize-textarea" required></textarea>
 				<label for="pregunta">Pregunta</label>
 			</div>
-			<div class="col s2">
-				<button class="waves-effect waves-light btn pink darken-4 center" type="submit">Preguntar</button>
-			</div>
-			<div class="col s4">
-				<a href="{{route('producto/comprar',$producto->id)}}" class="waves-effect waves-light btn red darken-4 center full_button">Comprar</a>
+			<div class="col s6">
+				<button class="waves-effect waves-light btn pink darken-4 center full_button" type="submit">Preguntar</button>
 			</div>
 		</form>
 		@endif

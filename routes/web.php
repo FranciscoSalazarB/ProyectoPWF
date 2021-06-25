@@ -48,10 +48,13 @@ Route::post('producto/{id}/editar',[ProductController::class,'update'])->name('p
 Route::get('producto/{id}/eliminar',[ProductController::class,'destroy'])->name('producto/eliminar');
 Route::get('producto/{id}/consignar',[ProductController::class,'consignar'])->name('producto/consignar');
 Route::get('producto/{id}/desconsignar',[ProductController::class,'desconsignar'])->name('producto/desconsignar');
-Route::get('producto/{id}/comprar',[ProductController::class,'comprar'])->name('producto/comprar');
+Route::post('producto/{id}/comprar',[ProductController::class,'comprar'])->name('producto/comprar');
 Route::post('producto/{id}/rechazar',[ProductController::class,'rechazar'])->name('producto/rechazar');
 
 Route::get('trasaction/{id}',[TransactionController::class,'index'])->name('transaction');
+Route::get('trasaction/{id}/entregado',[TransactionController::class,'entregado'])->name('transaction/entregado');
+Route::get('trasaction/{id}/confirmado',[TransactionController::class,'confirmado'])->name('transaction/confirmado');
+Route::post('trasaction/{id}/comprobante',[TransactionController::class,'comprobante'])->name('transaction/comprobante');
 
 
 Route::get('categorias/productos/{id}/crear', [ProductController::class,'store'])->name('categorias/productos/crear')->middleware('auth');

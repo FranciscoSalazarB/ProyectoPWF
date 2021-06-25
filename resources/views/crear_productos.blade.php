@@ -15,10 +15,16 @@
 					<label for="nombre">Nombre del producto</label>
 				</div>
 			</div>
-			<div class="col s12">
+			<div class="col s6">
 				<div class="input-field">
 					<input type="number" name="precio" required>
 					<label for="nombre">Precio del producto</label>
+				</div>
+			</div>
+			<div class="col s6">
+				<div class="input-field">
+					<input type="number" name="cantidad" required>
+					<label for="cantidad">Cantidad de existencias</label>
 				</div>
 			</div>
 			<div class="col s12">
@@ -29,7 +35,7 @@
 			</div>
 			<div class="col s12">
 				<div class="input-field">
-					<input type="file" name="imagen" class="waves-effect waves-light btn pink darken-4">
+					<input type="file" name="imagen">
 				</div>
 			</div>
 			<div class="col s12">

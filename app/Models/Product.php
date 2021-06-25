@@ -16,6 +16,7 @@ class Product extends Model
     	'user_id',
     	'category_id',
         'consignado',
+        'existencias',
         'motivo'
     ];
 

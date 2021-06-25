@@ -11,7 +11,11 @@ class Transaction extends Model
     protected $fillable = [
         'puntuacion',
         'product_id',
-        'comprador_id'
+        'comprador_id',
+        'entregado',
+        'confirmado',
+        'comprobante',
+        'cantidad'
     ];
 
     public function comprador()

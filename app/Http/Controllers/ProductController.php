@@ -51,7 +51,7 @@ class ProductController extends Controller
         $producto->user_id = Auth::id();
         $producto->category_id = $id;
         $producto->motivo = '';
-        $producto->url_imagen = '';
+        $producto->existencias = $req->input('cantidad');
         $producto->save();
 
         if ($req->hasFile('imagen')) {
@@ -188,14 +188,20 @@ class ProductController extends Controller
         return redirect()->route('producto',$pregunta->product->id);
     }
 
-    public function comprar($id_producto)
+    public function comprar(Request $req, $id_producto)
     {
         $producto = Product::find($id_producto);
         $transaction = new Transaction();
         $transaction->puntuacion = 0;
         $transaction->product_id = $producto->id;
         $transaction->comprador_id = Auth::id();
+        $transaction->confirmado = FALSE;
+        $transaction->entregado = FALSE;
+        $transaction->comprobante = '';
+        $transaction->cantidad = $req->input('cantidad');
         $transaction->save();
+        $producto->existencias = $producto->existencias - $req->input('cantidad');
+        $producto->save();
         return redirect()->route('transaction',$transaction->id);
     }
 
